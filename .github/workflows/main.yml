@@ -1,0 +1,40 @@
+name: Code Correction
+
+on:
+  push:
+    branches:
+      - main  # Run this workflow on pushes to the main branch
+
+jobs:
+  format_code:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai autopep8 flake8 pylint
+
+      - name: Get changed Python files
+        id: changed_files
+        run: |
+          echo "CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- '*.py')" >> $GITHUB_ENV
+
+      - name: Run code correction on changed files
+        if: env.CHANGED_FILES != ''
+        run: |
+          python main.py $CHANGED_FILES
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "murtuza.jambughoda@moschip.com"
+          git config --global user.name "MurtazaJ2"
+          git diff --quiet || (git add . && git commit -m "Auto-corrected added and modified Python files" && git push)
