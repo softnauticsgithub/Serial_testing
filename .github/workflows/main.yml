@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Ensures we have history for diff
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,7 +28,8 @@ jobs:
       - name: Get changed Python files
         id: changed_files
         run: |
-          echo "CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- '*.py')" >> $GITHUB_ENV
+          git fetch --depth=2 || true
+          echo "CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py')" >> $GITHUB_ENV
 
       - name: Run code correction on changed files
         if: env.CHANGED_FILES != ''
