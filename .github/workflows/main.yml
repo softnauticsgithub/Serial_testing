@@ -31,7 +31,7 @@ jobs:
       - name: Run code correction on changed files
         if: env.CHANGED_FILES != ''
         run: |
-          python main.py $CHANGED_FILES
+          python try2.py $CHANGED_FILES
 
       - name: Commit and push changes
         run: |
