@@ -88,7 +88,7 @@ def main(changed_files):
             # Run pylint
             pylint_result = subprocess.Popen(["pylint",
                 file_path
-            ], stdout=subprocess.PIPE, text=True, shell=True)
+            ], stderr=subprocess.PIPE, text=True, shell=True)
             stdout = pylint_result.communicate()
             print(stdout)
             # logging.info(re.split(r'-{2,}', stdout[0])[1])
