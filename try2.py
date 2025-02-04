@@ -83,7 +83,7 @@ def update_code_using_openai(file_path):
         if chunk.choices[0].delta.content:
             updated_code += chunk.choices[0].delta.content
 
-    cleaned_code = updated_code.replace("", "").replace("", "")
+    cleaned_code = updated_code.replace("```python", "").replace("```", "")
     with open(file_path, "w+") as file:
         file.write(cleaned_code)
 
@@ -116,14 +116,14 @@ def main(changed_files):
             logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
 
             # Run pylint
-            pylint_result = subprocess.Popen(["pylint", "--max-line-length=240",
-                file_path
-            ], stdout=subprocess.PIPE, text=True, shell=True)
-            stdout = pylint_result.communicate()
-            print(stdout)
+            # pylint_result = subprocess.Popen(["pylint", "--max-line-length=240",
+            #     file_path
+            # ], stdout=subprocess.PIPE, text=True, shell=True)
+            # stdout = pylint_result.communicate()
+            # print(stdout)
 
 
 if __name__ == "__main__":
     changed_files = sys.argv[1:]
     if changed_files:
-        main(changed_files
+        main(changed_files)
