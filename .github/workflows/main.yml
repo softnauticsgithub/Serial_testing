@@ -40,7 +40,7 @@ jobs:
           echo "Processing files: $env:COMMITTED_FILES"
           foreach ($file in $env:COMMITTED_FILES -split "`n") {
             echo "Processing: $file"
-            python main.py "$file"
+            python try2.py "$file"
           }
 
       - name: Commit and push changes
