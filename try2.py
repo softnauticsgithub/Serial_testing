@@ -1,4 +1,3 @@
-```python
 """Module for formatting and checking Python code using OpenAI, flake8, and autopep8.
 
 This module provides functionality to format Python code, check it for style issues,
@@ -116,13 +115,9 @@ def main(changed_files):
             logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
 
             # Run pylint
-<<<<<<< HEAD
             pylint_result = subprocess.Popen(["pylint", "--max-line-length=240",
                 file_path
             ], stdout=subprocess.PIPE, text=True, shell=True)
-=======
-            pylint_result = subprocess.Popen(["pylint", file_path], stdout=subprocess.PIPE, text=True, shell=True)
->>>>>>> 4b0b42889a9b4ce07961f0f3e6330fe39dec7f5b
             stdout = pylint_result.communicate()
             print(stdout)
 
@@ -131,4 +126,3 @@ if __name__ == "__main__":
     changed_files = sys.argv[1:]
     if changed_files:
         main(changed_files)
-```
