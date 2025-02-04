@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 2  # Ensure commit history
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,24 +27,22 @@ jobs:
 
       - name: Get changed Python files
         id: changed_files
+        shell: pwsh
         run: |
           git fetch --depth=2 || true
-          CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py')
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          echo "Changed files: $CHANGED_FILES"
+          $changedFiles = git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py'
+          echo "CHANGED_FILES=$changedFiles" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          echo "Changed files:"
+          echo $changedFiles
       
-      - name: Set changed files for matrix
-        id: files
-        run: |
-          echo "files=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py' | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_ENV
-          
       - name: Run code correction on changed files
-        if: env.files != '[]'
+        if: env.CHANGED_FILES != ''
         run: |
-          for file in $(echo ${{ env.files }} | jq -r '.[]'); do
+          echo "Processing files: $env:CHANGED_FILES"
+          foreach ($file in $env:CHANGED_FILES -split "`n") {
             echo "Processing: $file"
-            python main.py $file
-          done
+            python try2.py "$file"
+          }
           
       - name: Commit and push changes
         run: |
