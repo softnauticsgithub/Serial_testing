@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Ensure commit history
+          fetch-depth: 2  # Ensure we have commit history
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,27 +25,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install openai autopep8 flake8 pylint
 
-      - name: Get changed Python files
-        id: changed_files
+      - name: Get committed files
+        id: committed_files
         shell: pwsh
         run: |
-          git fetch --depth=2 || true
-          $changedFiles = git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py'
-          echo "CHANGED_FILES=$changedFiles" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-          echo "Changed files:"
+          $changedFiles = git ls-files -m -o --exclude-standard
+          echo "COMMITTED_FILES=$changedFiles" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+          echo "Committed files:"
           echo $changedFiles
-      
-      - name: Run code correction on changed files
-        if: env.CHANGED_FILES != ''
+
+      - name: Run code correction on committed files
+        if: env.COMMITTED_FILES != ''
         run: |
-          echo "Processing files: $env:CHANGED_FILES"
-          foreach ($file in $env:CHANGED_FILES -split "`n") {
+          echo "Processing files: $env:COMMITTED_FILES"
+          foreach ($file in $env:COMMITTED_FILES -split "`n") {
             echo "Processing: $file"
-            python try2.py "$file"
+            python main.py "$file"
           }
-          
+
       - name: Commit and push changes
         run: |
           git config --global user.email "murtuza.jambughoda@moschip.com"
           git config --global user.name "MurtazaJ2"
-          git diff --quiet || (git add . && git commit -m "Auto-corrected added and modified Python files" && git push)
+          git diff --quiet || (git add . && git commit -m "Auto-corrected committed files" && git push)
