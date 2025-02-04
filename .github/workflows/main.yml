@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Ensure we have commit history
+          fetch-depth: 2  # Ensure commit history
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -29,7 +29,8 @@ jobs:
         id: committed_files
         shell: pwsh
         run: |
-          $changedFiles = git ls-files -m -o --exclude-standard
+          git fetch --depth=2 || true
+          $changedFiles = git diff --name-only --diff-filter=AM ORIG_HEAD HEAD
           echo "COMMITTED_FILES=$changedFiles" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
           echo "Committed files:"
           echo $changedFiles
