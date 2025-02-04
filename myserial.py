@@ -1,9 +1,15 @@
+
+"""Module for handling serial communication with logging."""
+
 import serial
-import logging
+import logging  # pylint: disable=unused-import
 
 
 class MySerial:
+    """Class to manage serial communication."""
+
     def __init__(self, port, baudrate=9600):
+        """Initialize MySerial with port and baudrate."""
         self.port = port
         self.baudrate = baudrate
         self.serial_connection = None
@@ -11,6 +17,7 @@ class MySerial:
         self.logger = self.setup_logger()
 
     def connect(self):
+        """Establish a serial connection."""
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
             self.logger.info(f"Connected to {self.port} at {self.baudrate} baudrate")
@@ -18,6 +25,7 @@ class MySerial:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
     def read(self, num_bytes=1):
+        """Read bytes from the serial connection."""
         if self.serial_connection:
             try:
                 return self.serial_connection.read(num_bytes)
@@ -28,6 +36,7 @@ class MySerial:
             return b''
 
     def write(self, data):
+        """Write data to the serial connection."""
         if self.serial_connection:
             try:
                 self.serial_connection.write(data)
@@ -38,6 +47,7 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def flush(self):
+        """Flush the serial buffer."""
         if self.serial_connection:
             try:
                 self.serial_connection.flush()
@@ -48,6 +58,7 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def setup_logger(self):
+        """Set up the logger for the class."""
         logger = logging.getLogger('MySerialLogger')
         logger.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -55,3 +66,5 @@ class MySerial:
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
         return logger
+
+# pylint: disable=invalid-name
