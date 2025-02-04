@@ -90,8 +90,9 @@ def main(changed_files):
                 file_path
             ], stdout=subprocess.PIPE, text=True, shell=True)
             stdout = pylint_result.communicate()
-            logging.info(re.split(r'-{2,}', stdout[0])[1])
-            logging.info("--------------------------------------------------------------------------------------")
+            print(stdout)
+            # logging.info(re.split(r'-{2,}', stdout[0])[1])
+            # logging.info("--------------------------------------------------------------------------------------")
 
 
 if __name__ == "__main__":
