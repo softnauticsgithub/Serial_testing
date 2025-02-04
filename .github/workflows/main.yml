@@ -29,13 +29,41 @@ jobs:
         id: changed_files
         run: |
           git fetch --depth=2 || true
-          echo "CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py')" >> $GITHUB_ENV
-
-      - name: Run code correction on changed files
-        if: env.CHANGED_FILES != ''
+          CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py')
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "Changed files: $CHANGED_FILES"
+      
+      - name: Set changed files for matrix
+        id: files
         run: |
-          python try2.py $CHANGED_FILES
+          echo "files=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py' | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_ENV
 
+  process_files:
+    needs: format_code
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        file: ${{ fromJson(env.files) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai autopep8 flake8 pylint
+
+      - name: Run code correction on file
+        run: |
+          echo "Processing file: ${{ matrix.file }}"
+          python main.py "${{ matrix.file }}"
+          
       - name: Commit and push changes
         run: |
           git config --global user.email "murtuza.jambughoda@moschip.com"
