@@ -128,3 +128,48 @@ Flake8 issues after update:
 ./try2.py:90:17: E128 continuation line under-indented for visual indent
 ./try2.py:91:13: E124 closing bracket does not match visual indentation
 
+Processing file: try2.py
+Flake8 suggestions before update:
+./myserial.py:30:80: E501 line too long (85 > 79 characters)
+./myserial.py:86:80: E501 line too long (82 > 79 characters)
+./serial_testing.py:1:1: F401 'pytest' imported but unused
+./serial_testing.py:40:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:53:80: E501 line too long (94 > 79 characters)
+./serial_testing.py:59:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:71:9: F841 local variable 'a' is assigned to but never used
+./try2.py:7:1: F401 're' imported but unused
+./try2.py:11:80: E501 line too long (119 > 79 characters)
+./try2.py:14:80: E501 line too long (98 > 79 characters)
+./try2.py:19:80: E501 line too long (110 > 79 characters)
+./try2.py:26:9: E128 continuation line under-indented for visual indent
+./try2.py:27:5: E124 closing bracket does not match visual indentation
+./try2.py:37:80: E501 line too long (117 > 79 characters)
+./try2.py:43:80: E501 line too long (116 > 79 characters)
+./try2.py:75:80: E501 line too long (82 > 79 characters)
+./try2.py:91:17: E128 continuation line under-indented for visual indent
+./try2.py:92:13: E124 closing bracket does not match visual indentation
+./try2.py:93:13: F841 local variable 'stdout' is assigned to but never used
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Formatting the code using autopep8...
+Flake8 issues after update:
+./myserial.py:30:80: E501 line too long (85 > 79 characters)
+./myserial.py:86:80: E501 line too long (82 > 79 characters)
+./serial_testing.py:1:1: F401 'pytest' imported but unused
+./serial_testing.py:40:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:53:80: E501 line too long (94 > 79 characters)
+./serial_testing.py:59:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:71:9: F841 local variable 'a' is assigned to but never used
+./try2.py:2:80: E501 line too long (85 > 79 characters)
+./try2.py:4:80: E501 line too long (84 > 79 characters)
+./try2.py:5:80: E501 line too long (81 > 79 characters)
+./try2.py:20:80: E501 line too long (119 > 79 characters)
+./try2.py:23:80: E501 line too long (98 > 79 characters)
+./try2.py:35:80: E501 line too long (110 > 79 characters)
+./try2.py:48:80: E501 line too long (99 > 79 characters)
+./try2.py:62:80: E501 line too long (117 > 79 characters)
+./try2.py:68:80: E501 line too long (116 > 79 characters)
+./try2.py:104:80: E501 line too long (82 > 79 characters)
+./try2.py:119:80: E501 line too long (114 > 79 characters)
+./try2.py:120:13: F841 local variable 'stdout' is assigned to but never used
+
