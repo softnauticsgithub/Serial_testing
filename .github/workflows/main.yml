@@ -1,51 +1,47 @@
 name: Code Correction
 
-on:
-  push:
-    branches:
-      - branch1
+on: [push]
 
 jobs:
   format_code:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+        
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 2  # Ensure commit history
 
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install openai autopep8 flake8 pylint
 
-      - name: Get committed files
-        id: committed_files
-        shell: pwsh
+      - name: Get changed Python files
+        id: changed_files
         run: |
-          git fetch --depth=2 || true
-          $changedFiles = git diff --name-only --diff-filter=AM ORIG_HEAD HEAD
-          echo "COMMITTED_FILES=$changedFiles" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
-          echo "Committed files:"
-          echo $changedFiles
+          CHANGED_FILES=$(git diff --name-only --diff-filter=AM ORIG_HEAD HEAD -- '*.py')
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "Processing files: $CHANGED_FILES"
 
-      - name: Run code correction on committed files
-        if: env.COMMITTED_FILES != ''
+      - name: Run code correction on changed files
+        if: env.CHANGED_FILES != ''
         run: |
-          echo "Processing files: $env:COMMITTED_FILES"
-          foreach ($file in $env:COMMITTED_FILES -split "`n") {
+          for file in $CHANGED_FILES; do
             echo "Processing: $file"
             python try2.py "$file"
-          }
+          done
 
       - name: Commit and push changes
         run: |
           git config --global user.email "murtuza.jambughoda@moschip.com"
           git config --global user.name "MurtazaJ2"
-          git diff --quiet || (git add . && git commit -m "Auto-corrected committed files" && git push)
+          git diff --quiet || (git add . && git commit -m "Auto-corrected Python files" && git push)
