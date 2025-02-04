@@ -1,3 +1,4 @@
+
 """Module for formatting and checking Python code using OpenAI, flake8, and autopep8.
 
 This module provides functionality to format Python code, check it for style issues,
@@ -82,7 +83,7 @@ def update_code_using_openai(file_path):
         if chunk.choices[0].delta.content:
             updated_code += chunk.choices[0].delta.content
 
-    cleaned_code = updated_code.replace("```python", "").replace("```", "")
+    cleaned_code = updated_code.replace("", "").replace("", "")
     with open(file_path, "w+") as file:
         file.write(cleaned_code)
 
@@ -125,4 +126,4 @@ def main(changed_files):
 if __name__ == "__main__":
     changed_files = sys.argv[1:]
     if changed_files:
-        main(changed_files)
+        main(changed_files
