@@ -37,32 +37,14 @@ jobs:
         id: files
         run: |
           echo "files=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py' | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_ENV
-
-  process_files:
-    needs: format_code
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        file: ${{ fromJson(env.files) }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
+          
+      - name: Run code correction on changed files
+        if: env.files != '[]'
         run: |
-          python -m pip install --upgrade pip
-          pip install openai autopep8 flake8 pylint
-
-      - name: Run code correction on file
-        run: |
-          echo "Processing file: ${{ matrix.file }}"
-          python main.py "${{ matrix.file }}"
+          for file in $(echo ${{ env.files }} | jq -r '.[]'); do
+            echo "Processing: $file"
+            python main.py $file
+          done
           
       - name: Commit and push changes
         run: |
