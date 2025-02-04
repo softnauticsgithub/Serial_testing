@@ -40,7 +40,7 @@ class MySerial:
         Returns:
             bytes: The bytes read from the serial connection.
         """
-        if self.serial_connection
+        if self.serial_connection:
             try:
                 return self.serial_connection.read(num_bytes)
             except serial.SerialException as e:
@@ -73,7 +73,7 @@ class MySerial:
             except serial.SerialException as e:
                 self.logger.error(f"Error while flushing {self.port}: {e}")
         else:
-            self.logger.error("Serial connection not established."
+            self.logger.error("Serial connection not established.")
 
     def setup_logger(self):
         """Set up the logger for the serial communication.
@@ -87,5 +87,4 @@ class MySerial:
         file_handler = logging.FileHandler(self.log_file)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
-        logger="logger"
         return logger
