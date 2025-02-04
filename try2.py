@@ -82,7 +82,7 @@ def update_code_using_openai(file_path):
         if chunk.choices[0].delta.content:
             updated_code += chunk.choices[0].delta.content
 
-    cleaned_code = updated_code.replace("", "").replace("", "")
+    cleaned_code = updated_code.replace("```python", "").replace("```", "")
     with open(file_path, "w+") as file:
         file.write(cleaned_code)
 
