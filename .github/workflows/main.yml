@@ -35,8 +35,10 @@ jobs:
       - name: Run code correction on changed files
         if: env.CHANGED_FILES != ''
         run: |
-          echo "Processing files: $CHANGED_FILES"
-          python try2.py $CHANGED_FILES
+          for file in $CHANGED_FILES; do
+            echo "Processing: $file"
+            python try2.py "$file"
+          done
 
 
       - name: Commit and push changes
