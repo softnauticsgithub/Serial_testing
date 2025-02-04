@@ -28,9 +28,9 @@ jobs:
       - name: Get changed Python files
         id: changed_files
         run: |
-          CHANGED_FILES=$(git diff --name-only --diff-filter=AM ORIG_HEAD HEAD -- '*.py')
+          CHANGED_FILES=$(git diff --name-only --diff-filter=AM HEAD^ HEAD -- '*.py' || echo "")
           echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          echo "Processing files: $CHANGED_FILES"
+          echo "Changed files: $CHANGED_FILES"
 
       - name: Run code correction on changed files
         if: env.CHANGED_FILES != ''
