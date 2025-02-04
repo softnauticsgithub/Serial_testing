@@ -7,8 +7,8 @@ import time
 import re
 
 # Configure OpenAI client
-api_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key="sk-proj-2By770zviWsreq3LW7fDGkfGTaTOKYJT"
+                        "-ljdUvR0fGvbkaMju9G00dWHEET3BlbkFJjDPJFC1edC9Lnbat6qWXpmZo3mNk_B1jiWyC5Tf-DY447H9qVwk0wOKOsA")
 
 # Configure logging
 logging.basicConfig(filename="Code_Formatting_logs.log", level=logging.INFO, format="%(message)s")
