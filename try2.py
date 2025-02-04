@@ -22,8 +22,7 @@ def format_python_code(file_path):
 
 def check_code_with_flake8(file_path):
     """Checks Python code with flake8."""
-    result = subprocess.Popen([
-        r"C:\Users\Murtaza\AppData\Local\Programs\Python\Python312\Scripts\flake8.exe",
+    result = subprocess.Popen(["flake8",
         file_path
     ], stdout=subprocess.PIPE, text=True, shell=True)
     stdout = result.communicate()
@@ -87,8 +86,7 @@ def main(changed_files):
             logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
 
             # Run pylint
-            pylint_result = subprocess.Popen([
-                r"C:\Users\Murtaza\AppData\Local\Programs\Python\Python312\Scripts\pylint.exe",
+            pylint_result = subprocess.Popen(["pylint",
                 file_path
             ], stdout=subprocess.PIPE, text=True, shell=True)
             stdout = pylint_result.communicate()
