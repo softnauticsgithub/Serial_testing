@@ -37,7 +37,7 @@ jobs:
         run: |
           for file in $CHANGED_FILES; do
             echo "Processing: $file"
-            python main.py "$file"
+            python try2.py "$file"
           done
 
 
