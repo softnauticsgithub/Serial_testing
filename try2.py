@@ -116,7 +116,7 @@ def main(changed_files):
             logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
 
             # Run pylint
-            pylint_result = subprocess.Popen(["pylint",
+            pylint_result = subprocess.Popen(["pylint", "--max-line-length=240",
                 file_path
             ], stdout=subprocess.PIPE, text=True, shell=True)
             stdout = pylint_result.communicate()
