@@ -50,7 +50,7 @@ def check_code_with_flake8(file_path):
     return stdout
 
 
-def update_code_using_openai(file_path):
+def update_code_using_openai(file_path, suggestions):
     """Updates Python code using OpenAI API to correct and format the code.
 
     Args:
@@ -66,6 +66,7 @@ def update_code_using_openai(file_path):
               "3. Convert all naming conventions to snake_case.\n"
               "4. Remove unused imports.\n"
               "5. Disable pylint's 'invalid-name' rule for the entire module with 'pylint: disable=invalid-name'.\n"
+              f"6. analyze all the suggesstions and fix it:\n{suggestions}\n"
               "Provide only the modified code, without any additional text.\n"
               f"Code:\n{original_code}\n"
               )
@@ -102,9 +103,10 @@ def main(changed_files):
             # Check for Flake8 issues
             flake8_result = check_code_with_flake8(file_path)
             logging.info(f"Flake8 suggestions:\n{flake8_result[0]}")
+            suggesstions = flake8_result[0]
 
             # Update code using OpenAI
-            update_code_using_openai(file_path)
+            update_code_using_openai(file_path, suggesstions)
             time.sleep(3)
 
             # Format the code using autopep8
