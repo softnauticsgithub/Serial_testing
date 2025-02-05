@@ -1,22 +1,10 @@
-
-"""Module for handling serial communication with logging."""
-
 import logging
-import serial  # pylint: disable=unused-import
-
-# pylint: disable=invalid-name
+import serial
 
 
 class MySerial:
-    """Class to manage serial communication."""
 
     def __init__(self, port, baudrate=9600):
-        """Initialize the MySerial instance.
-
-        Args:
-            port (str): The serial port to connect to.
-            baudrate (int): The baud rate for the connection.
-        """
         self.port = port
         self.baudrate = baudrate
         self.serial_connection = None
@@ -24,7 +12,6 @@ class MySerial:
         self.logger = self.setup_logger()
 
     def connect(self):
-        """Establish a connection to the serial port."""
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
             self.logger.info(
@@ -34,14 +21,6 @@ class MySerial:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
     def read(self, num_bytes=1):
-        """Read bytes from the serial connection.
-
-        Args:
-            num_bytes (int): The number of bytes to read.
-
-        Returns:
-            bytes: The bytes read from the serial connection.
-        """
         if self.serial_connection:
             try:
                 return self.serial_connection.read(num_bytes)
@@ -52,11 +31,6 @@ class MySerial:
             return b''
 
     def write(self, data):
-        """Write bytes to the serial connection.
-
-        Args:
-            data (bytes): The data to write to the serial connection.
-        """
         if self.serial_connection:
             try:
                 self.serial_connection.write(data)
@@ -67,7 +41,6 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def flush(self):
-        """Flush the serial buffer."""
         if self.serial_connection:
             try:
                 self.serial_connection.flush()
@@ -78,11 +51,6 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def setup_logger(self):
-        """Set up the logger for the serial communication.
-
-        Returns:
-            logging.Logger: Configured logger instance.
-        """
         logger = logging.getLogger('MySerialLogger')
         logger.setLevel(logging.INFO)
         formatter = logging.Formatter(
