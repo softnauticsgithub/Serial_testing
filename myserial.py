@@ -8,7 +8,6 @@ reading from it, writing to it, and flushing the serial buffer.
 import logging
 import serial  # pylint: disable=invalid-name
 
-
 # pylint: disable=invalid-name
 class MySerial:
     """
