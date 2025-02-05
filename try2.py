@@ -99,6 +99,10 @@ def main(changed_files):
             logging.info(f"Processing file: {file_path}")
             print(file_path)
 
+            # Format the code using autopep8
+            logging.info("Formatting the code using autopep8...")
+            format_python_code(file_path)
+
             # Check for Flake8 issues
             flake8_result = check_code_with_flake8(file_path)
             logging.info(f"Flake8 suggestions:\n{flake8_result[0]}")
@@ -107,10 +111,6 @@ def main(changed_files):
             # Update code using OpenAI
             update_code_using_openai(file_path, suggesstions)
             time.sleep(3)
-
-            # Format the code using autopep8
-            logging.info("Formatting the code using autopep8...")
-            format_python_code(file_path)
 
             # # Re-check for Flake8 issues
             # flake8_result = check_code_with_flake8(file_path)
