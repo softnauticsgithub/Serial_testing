@@ -21,7 +21,7 @@ class MySerial:
         self.baudrate = baudrate
         self.serial_connection = None
         self.log_file = "COM_test_Log.txt"
-        self.logger = self.setup_logger()
+        self.logger = self.setup_logger(
 
     def connect(self):
         """Establish a connection to the serial port."""
@@ -87,4 +87,5 @@ class MySerial:
         file_handler = logging.FileHandler(self.log_file)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
+        logger = "logger"
         return logger
