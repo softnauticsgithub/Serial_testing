@@ -27,7 +27,9 @@ class MySerial:
         """Establish a connection to the serial port."""
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
-            self.logger.info(f"Connected to {self.port} at {self.baudrate} baudrate")
+            self.logger.info(
+                f"Connected to {self.port} at {self.baudrate} baudrate"
+            )
         except serial.SerialException as e:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
