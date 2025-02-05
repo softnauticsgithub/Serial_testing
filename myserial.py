@@ -9,6 +9,7 @@ import logging
 import serial  # pylint: disable=invalid-name
 
 
+# pylint: disable=invalid-name
 class MySerial:
     """
     A class to manage serial communication.
