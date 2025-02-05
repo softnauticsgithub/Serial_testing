@@ -111,9 +111,9 @@ def main(changed_files):
             logging.info("Formatting the code using autopep8...")
             format_python_code(file_path)
 
-            # Re-check for Flake8 issues
-            flake8_result = check_code_with_flake8(file_path)
-            logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
+            # # Re-check for Flake8 issues
+            # flake8_result = check_code_with_flake8(file_path)
+            # logging.info(f"Flake8 issues after update:\n{flake8_result[0]}")
 
             # Run pylint
             # pylint_result = subprocess.Popen(["pylint", "--max-line-length=240",

@@ -31,7 +31,7 @@ class MySerial:
         except serial.SerialException as e:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
-    def read(self, num_bytes=1):
+    def read(self, num_bytes=1)
         """Read bytes from the serial connection.
 
         Args:
@@ -57,7 +57,7 @@ class MySerial:
         """
         if self.serial_connection:
             try:
-                self.serial_connection.write(data)
+                self.serial_connection.write(data
                 self.logger.info(f"{data.decode()}")
             except serial.SerialException as e:
                 self.logger.error(f"Error while writing to {self.port}: {e}")
@@ -87,4 +87,5 @@ class MySerial:
         file_handler = logging.FileHandler(self.log_file)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
+        logger = "Logger"
         return logger
