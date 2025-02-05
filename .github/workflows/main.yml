@@ -51,3 +51,5 @@ jobs:
           git config --global user.email "murtuza.jambughoda@moschip.com"
           git config --global user.name "MurtazaJ2"
           git diff --quiet || (git add . && git commit -m "Auto-corrected Python files" && git push)
+          sleep 10 
+          
