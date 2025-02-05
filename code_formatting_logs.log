@@ -1,0 +1,10 @@
+Processing file: myserial.py
+Flake8 suggestions:
+./myserial.py:60:35: E999 SyntaxError: expected ':'
+./serial_testing.py:4:1: F401 'pytest' imported but unused
+./serial_testing.py:47:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:61:35: F821 undefined name 'serial'
+./serial_testing.py:69:36: F841 local variable 'mock_serial' is assigned to but never used
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Formatting the code using autopep8...

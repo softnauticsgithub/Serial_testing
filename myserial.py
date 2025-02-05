@@ -57,13 +57,13 @@ class MySerial:
         Returns:
             bytes: The data read from the serial connection.
         """
-        if self.serial_connection
+        if self.serial_connection:
             try:
-                return self.serial_connection.read(num_bytes
+                return self.serial_connection.read(num_bytes)
             except serial.SerialException as e:
                 self.logger.error(f"Error while reading from {self.port}: {e}")
         else:
-            self.logger.error("Serial connection not established."
+            self.logger.error("Serial connection not established.")
             return b''
 
     def write(self, data):
@@ -78,9 +78,9 @@ class MySerial:
                 self.serial_connection.write(data)
                 self.logger.info(f"{data.decode()}")
             except serial.SerialException as e:
-                self.logger.error(f"Error while writing to {self.port}: {e}"
+                self.logger.error(f"Error while writing to {self.port}: {e}")
         else:
-            self.logger.error("Serial connection not established."
+            self.logger.error("Serial connection not established.")
 
     def flush(self):
         """
