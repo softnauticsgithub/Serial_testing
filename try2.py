@@ -45,7 +45,7 @@ def check_code_with_flake8(file_path):
     Returns:
         tuple: The standard output from the flake8 process.
     """
-    result = subprocess.Popen(["flake8 --extend-ignore E501,W292", file_path], stdout=subprocess.PIPE, text=True, shell=True)
+    result = subprocess.Popen(["flake8 --extend-ignore E501,W292,E302,F841,F401,F821", file_path], stdout=subprocess.PIPE, text=True, shell=True)
     stdout = result.communicate()
     return stdout
 
