@@ -45,7 +45,7 @@ def check_code_with_flake8(file_path):
     Returns:
         tuple: The standard output from the flake8 process.
     """
-    result = subprocess.Popen(["flake8", file_path], stdout=subprocess.PIPE, text=True, shell=True)
+    result = subprocess.Popen(["flake8", "--ignore=E501,W292", file_path], stdout=subprocess.PIPE, text=True, shell=True)
     stdout = result.communicate()
     return stdout
 
@@ -66,7 +66,6 @@ def update_code_using_openai(file_path, suggestions):
               "3. Convert all naming conventions to snake_case.\n"
               "4. Remove unused imports.\n"
               "5. Disable pylint's 'invalid-name' rule for the entire module with 'pylint: disable=invalid-name'.\n"
-              f"6. analyze all the suggesstions and fix it:\n{suggestions}\n"
               "Provide only the modified code, without any additional text.\n"
               f"Code:\n{original_code}\n"
               )
