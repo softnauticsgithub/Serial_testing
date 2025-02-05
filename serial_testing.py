@@ -62,7 +62,7 @@ def test_flush_successful():
         serial_instance.flush()
 
 
-def test_repetitive_read_write():
+def test_repetitive_read_write()
     with patch('serial.Serial') as mock_serial:
         serial_instance = MySerial('COM10')
         serial_instance.connect()
