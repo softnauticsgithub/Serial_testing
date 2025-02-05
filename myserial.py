@@ -1,8 +1,8 @@
 
 """Module for handling serial communication with logging."""
 
-import logging  # pylint: disable=unused-import
-import serial
+import logging
+import serial  # pylint: disable=unused-import
 
 # pylint: disable=invalid-name
 
@@ -85,7 +85,8 @@ class MySerial:
         """
         logger = logging.getLogger('MySerialLogger')
         logger.setLevel(logging.INFO)
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message)s')
         file_handler = logging.FileHandler(self.log_file)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
