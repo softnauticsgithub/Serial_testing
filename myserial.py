@@ -1,10 +1,34 @@
+
+"""
+This module provides a class for handling serial communication using the
+pyserial library. It includes methods for connecting to a serial port,
+reading from it, writing to it, and flushing the serial buffer.
+"""
+
 import logging
-import serial
+import serial  # pylint: disable=invalid-name
 
 
 class MySerial:
+    """
+    A class to manage serial communication.
+
+    Attributes:
+        port (str): The port to connect to.
+        baudrate (int): The baud rate for the connection.
+        serial_connection (serial.Serial): The serial connection object.
+        log_file (str): The name of the log file.
+        logger (logging.Logger): The logger for logging events.
+    """
 
     def __init__(self, port, baudrate=9600):
+        """
+        Initializes the MySerial class with the specified port and baudrate.
+
+        Args:
+            port (str): The port to connect to.
+            baudrate (int): The baud rate for the connection.
+        """
         self.port = port
         self.baudrate = baudrate
         self.serial_connection = None
@@ -12,6 +36,9 @@ class MySerial:
         self.logger = self.setup_logger()
 
     def connect(self):
+        """
+        Establishes a connection to the serial port.
+        """
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
             self.logger.info(
@@ -21,6 +48,15 @@ class MySerial:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
     def read(self, num_bytes=1):
+        """
+        Reads a specified number of bytes from the serial connection.
+
+        Args:
+            num_bytes (int): The number of bytes to read.
+
+        Returns:
+            bytes: The data read from the serial connection.
+        """
         if self.serial_connection:
             try:
                 return self.serial_connection.read(num_bytes)
@@ -31,6 +67,12 @@ class MySerial:
             return b''
 
     def write(self, data):
+        """
+        Writes data to the serial connection.
+
+        Args:
+            data (bytes): The data to write to the serial connection.
+        """
         if self.serial_connection:
             try:
                 self.serial_connection.write(data)
@@ -41,6 +83,9 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def flush(self):
+        """
+        Flushes the serial buffer.
+        """
         if self.serial_connection:
             try:
                 self.serial_connection.flush()
@@ -51,6 +96,12 @@ class MySerial:
             self.logger.error("Serial connection not established.")
 
     def setup_logger(self):
+        """
+        Sets up the logger for the MySerial class.
+
+        Returns:
+            logging.Logger: The configured logger.
+        """
         logger = logging.getLogger('MySerialLogger')
         logger.setLevel(logging.INFO)
         formatter = logging.Formatter(
