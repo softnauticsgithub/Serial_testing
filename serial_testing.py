@@ -58,7 +58,8 @@ def test_write_successful():
 def test_write_failure():
     """Test failure to write to the serial port."""
     with patch('serial.Serial') as mock_serial:
-        mock_serial.side_effect = serial.SerialException("Serial connection not established.")
+        mock_serial.side_effect = serial.SerialException(
+            "Serial connection not established.")
         serial_instance = MySerial('COM10')
         assert serial_instance.write(b'') is None
 
