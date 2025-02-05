@@ -8,3 +8,13 @@ Flake8 suggestions:
 ./serial_testing.py:69:36: F841 local variable 'mock_serial' is assigned to but never used
 
 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Processing file: myserial.py
+Formatting the code using autopep8...
+Flake8 suggestions:
+./myserial.py:12:1: E302 expected 2 blank lines, found 1
+./serial_testing.py:4:1: F401 'pytest' imported but unused
+./serial_testing.py:47:36: F841 local variable 'mock_serial' is assigned to but never used
+./serial_testing.py:61:35: F821 undefined name 'serial'
+./serial_testing.py:69:36: F841 local variable 'mock_serial' is assigned to but never used
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
