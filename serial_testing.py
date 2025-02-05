@@ -1,10 +1,13 @@
+
+"""Module for testing MySerial class functionality."""
+
 import pytest
-import serial
 from unittest.mock import patch
-from myserial import MySerial
+from myserial import MySerial  # pylint: disable=invalid-name
 
 
 def test_connection_successful():
+    """Test successful connection to the serial port."""
     with patch('serial.Serial') as mock_serial:
         mock_serial.return_value = True
         serial_instance = MySerial('COM10')
@@ -13,6 +16,7 @@ def test_connection_successful():
 
 
 def test_connection_failure():
+    """Test failure to connect to the serial port."""
     with patch('serial.Serial') as mock_serial:
         mock_serial.return_value = None
         serial_instance = MySerial('COM10')
@@ -21,6 +25,7 @@ def test_connection_failure():
 
 
 def test_read_successful():
+    """Test successful read from the serial port."""
     with patch('serial.Serial') as mock_serial:
         mock_serial.return_value.read.return_value = b'Test data'
         serial_instance = MySerial('COM10')
@@ -29,6 +34,7 @@ def test_read_successful():
 
 
 def test_read_failure():
+    """Test failure to read from the serial port."""
     with patch('serial.Serial') as mock_serial:
         mock_serial.return_value.read.return_value = b''
         serial_instance = MySerial('COM10')
@@ -37,6 +43,7 @@ def test_read_failure():
 
 
 def test_write_successful():
+    """Test successful write to the serial port."""
     with patch('serial.Serial') as mock_serial:
         serial_instance = MySerial('COM10')
         serial_instance.connect()
@@ -49,6 +56,7 @@ def test_write_successful():
 
 
 def test_write_failure():
+    """Test failure to write to the serial port."""
     with patch('serial.Serial') as mock_serial:
         mock_serial.side_effect = serial.SerialException("Serial connection not established.")
         serial_instance = MySerial('COM10')
@@ -56,19 +64,20 @@ def test_write_failure():
 
 
 def test_flush_successful():
+    """Test successful flush of the serial port."""
     with patch('serial.Serial') as mock_serial:
         serial_instance = MySerial('COM10')
         serial_instance.connect()
         serial_instance.flush()
 
 
-def test_repetitive_read_write()
+def test_repetitive_read_write():
+    """Test repetitive read and write operations on the serial port."""
     with patch('serial.Serial') as mock_serial:
         serial_instance = MySerial('COM10')
         serial_instance.connect()
         mock_serial.return_value.read.side_effect = [b'Test'] * 10
         serial_instance.serial_connection.write = lambda data: None
-        a = 10
         for _ in range(10):
             assert serial_instance.read(4) == b'Test'
             serial_instance.write(b'Test')

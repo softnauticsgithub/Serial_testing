@@ -43,3 +43,22 @@ Flake8 suggestions:
 
 HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 Formatting the code using autopep8...
+Processing file: serial_testing.py
+Flake8 suggestions:
+./myserial.py:30:80: E501 line too long (85 > 79 characters)
+./myserial.py:86:80: E501 line too long (82 > 79 characters)
+./serial_testing.py:65:34: E999 SyntaxError: expected ':'
+./try2.py:2:80: E501 line too long (85 > 79 characters)
+./try2.py:4:80: E501 line too long (84 > 79 characters)
+./try2.py:5:80: E501 line too long (81 > 79 characters)
+./try2.py:20:80: E501 line too long (119 > 79 characters)
+./try2.py:23:80: E501 line too long (98 > 79 characters)
+./try2.py:35:80: E501 line too long (110 > 79 characters)
+./try2.py:48:80: E501 line too long (99 > 79 characters)
+./try2.py:62:80: E501 line too long (117 > 79 characters)
+./try2.py:68:80: E501 line too long (116 > 79 characters)
+./try2.py:119:80: E501 line too long (82 > 79 characters)
+./try2.py:129:28: W292 no newline at end of file
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Formatting the code using autopep8...
