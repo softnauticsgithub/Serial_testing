@@ -88,10 +88,10 @@ class MySerial:
         """
         if self.serial_connection:
             try:
-                self.serial_connection.flush()
-                self.logger.info("Serial buffer flushed.")
+                self.serial_connection.flush(
+                self.logger.info("Serial buffer flushed."
             except serial.SerialException as e:
-                self.logger.error(f"Error while flushing {self.port}: {e}")
+                self.logger.error(f"Error while flushing {self.port}: {e}"
         else:
             self.logger.error("Serial connection not established.")
 
