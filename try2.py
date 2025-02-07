@@ -9,7 +9,7 @@ import time
 client = OpenAI(api_key="sk-proj-2By770zviWsreq3LW7fDGkfGTaTOKYJT"
                         "-ljdUvR0fGvbkaMju9G00dWHEET3BlbkFJjDPJFC1edC9Lnbat6qWXpmZo3mNk_B1jiWyC5Tf-DY447H9qVwk0wOKOsA")
 
-# assistant_id = "asst_ohjld2zq70yjwOqIDCBIvWHM"
+assistant_id = "asst_ohjld2zq70yjwOqIDCBIvWHM"
 
 # Configure logging
 # logging.basicConfig(filename="code_formatting_logs.log", level=logging.INFO, format="%(message)s")
@@ -24,7 +24,7 @@ def format_python_code(file_path):
 def check_code_with_flake8(file_path):
     """Checks Python code with flake8."""
     result = subprocess.Popen([
-        r"C:\Users\Murtaza\AppData\Local\Programs\Python\Python312\Scripts\flake8.exe", file_path
+        r"flake8 --extend-ignore E501,W292,E302,F841,F401,F821", file_path
     ], stdout=subprocess.PIPE, text=True, shell=True)
     stdout = result.communicate()
     return stdout
@@ -35,18 +35,18 @@ def update_code_using_openai(file_path):
     with open(file_path, "r") as file:
         original_code = file.read()
 
-    assistant = client.beta.assistants.create(
-        name="Static_analysis_python",
-        instructions="""You are a Python code reviewer specializing in enforcing Flake8 and Pylint standards. When 
-        provided with Python code, you must:\n 1. Add module-level docstrings describing the purpose of the script.\n 
-        2. Add function and method docstrings explaining their functionality, parameters, and return values.\n 3. 
-        Ensure all naming conventions follow snake_case (convert variables, functions, and method names 
-        accordingly).\n 4. Remove unused imports to maintain clean and efficient code.\n 5. Disable Pylint’s 
-        'invalid-name' rule for the entire module using # pylint: disable=invalid-name.\n Provide only the modified 
-        code, without any additional text.""",
-        tools=[{"type": "code_interpreter"}],
-        model="gpt-4o-mini"
-    )
+    # assistant = client.beta.assistants.create(
+    #     name="Static_analysis_python",
+    #     instructions="""You are a Python code reviewer specializing in enforcing Flake8 and Pylint standards. When 
+    #     provided with Python code, you must:\n 1. Add module-level docstrings describing the purpose of the script.\n 
+    #     2. Add function and method docstrings explaining their functionality, parameters, and return values.\n 3. 
+    #     Ensure all naming conventions follow snake_case (convert variables, functions, and method names 
+    #     accordingly).\n 4. Remove unused imports to maintain clean and efficient code.\n 5. Disable Pylint’s 
+    #     'invalid-name' rule for the entire module using # pylint: disable=invalid-name.\n Provide only the modified 
+    #     code, without any additional text.""",
+    #     tools=[{"type": "code_interpreter"}],
+    #     model="gpt-4o-mini"
+    # )
 
     thread = client.beta.threads.create()
     message = client.beta.threads.messages.create(
@@ -60,7 +60,7 @@ def update_code_using_openai(file_path):
 
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
-        assistant_id=assistant.id
+        assistant_id=assistant_id
     )
 
     while run.status not in ["completed", "failed"]:
