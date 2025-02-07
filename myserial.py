@@ -34,12 +34,11 @@ class MySerial:
         self.serial_connection = None
         self.log_file = "COM_test_Log.txt"
         self.logger = self.setup_logger()
+
     def connect(self):
         """
         Establishes a connection to the serial port.
         """
-
-
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
             self.logger.info(
@@ -49,6 +48,15 @@ class MySerial:
             self.logger.error(f"Failed to connect to {self.port}: {e}")
 
     def read(self, num_bytes=1):
+        """
+        Reads bytes from the serial port.
+
+        Args:
+            num_bytes (int): The number of bytes to read.
+
+        Returns:
+            bytes: The data read from the serial port.
+        """
         if self.serial_connection:
             try:
                 return self.serial_connection.read(num_bytes)
@@ -59,6 +67,12 @@ class MySerial:
             return b''
 
     def write(self, data):
+        """
+        Writes data to the serial port.
+
+        Args:
+            data (bytes): The data to write to the serial port.
+        """
         if self.serial_connection:
             try:
                 self.serial_connection.write(data)
@@ -81,8 +95,6 @@ class MySerial:
         else:
             self.logger.error("Serial connection not established.")
 
-
-
     def setup_logger(self):
         """
         Sets up the logger for the MySerial class.
@@ -90,7 +102,7 @@ class MySerial:
         Returns:
             logging.Logger: The configured logger.
         """
-        logger = logging.getLogger('MySerialLogger'
+        logger = logging.getLogger('MySerialLogger')
         logger.setLevel(logging.INFO)
         formatter = logging.Formatter(
             '%(asctime)s - %(levelname)s - %(message)s'
