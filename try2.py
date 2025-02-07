@@ -9,10 +9,10 @@ import time
 client = OpenAI(api_key="sk-proj-2By770zviWsreq3LW7fDGkfGTaTOKYJT"
                         "-ljdUvR0fGvbkaMju9G00dWHEET3BlbkFJjDPJFC1edC9Lnbat6qWXpmZo3mNk_B1jiWyC5Tf-DY447H9qVwk0wOKOsA")
 
-assistant_id = "asst_ohjld2zq70yjwOqIDCBIvWHM"
+# assistant_id = "asst_ohjld2zq70yjwOqIDCBIvWHM"
 
 # Configure logging
-logging.basicConfig(filename="code_formatting_logs.log", level=logging.INFO, format="%(message)s")
+# logging.basicConfig(filename="code_formatting_logs.log", level=logging.INFO, format="%(message)s")
 
 
 def format_python_code(file_path):
@@ -60,7 +60,7 @@ def update_code_using_openai(file_path):
 
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
-        assistant_id=assistant_id
+        assistant_id=assistant.id
     )
 
     while run.status not in ["completed", "failed"]:
@@ -80,12 +80,13 @@ def main(changed_files):
     """Processes only the changed Python files."""
     for file_path in changed_files:
         if file_path.endswith(".py") and os.path.exists(file_path):
-            logging.info(f"Processing file: {file_path}")
-            print(file_path)
+            # logging.info(f"Processing file: {file_path}")
+            # print(file_path)
 
             # Check for Flake8 issues
             flake8_result = check_code_with_flake8(file_path)
-            logging.info(f"Flake8 suggestions:\n{flake8_result[0]}")
+            print((f"Flake8 suggestions:\n{flake8_result[0]}"))
+            # logging.info(f"Flake8 suggestions:\n{flake8_result[0]}")
 
             # Update code using OpenAI Assistant
             update_code_using_openai(file_path)
