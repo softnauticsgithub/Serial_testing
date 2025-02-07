@@ -3,6 +3,8 @@
 This module provides a class for handling serial communication using the
 pyserial library. It includes methods for connecting to a serial port,
 reading from it, writing to it, and flushing the serial buffer.
+
+# pylint: disable=invalid-name
 """
 
 import logging
