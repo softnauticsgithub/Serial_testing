@@ -24,23 +24,12 @@ class MySerial:
     """
 
     def __init__(self, port, baudrate=9600):
-        """
-        Initializes the MySerial class with the specified port and baudrate.
-
-        Args:
-            port (str): The port to connect to.
-            baudrate (int): The baud rate for the connection.
-        """
         self.port = port
         self.baudrate = baudrate
         self.serial_connection = None
         self.log_file = "COM_test_Log.txt"
-        self.logger = self.setup_logger()
-
-    def connect(self):
-        """
-        Establishes a connection to the serial port.
-        """
+        self.logger = self.setup_logger(
+    def connect(self)
         try:
             self.serial_connection = serial.Serial(self.port, self.baudrate)
             self.logger.info(
