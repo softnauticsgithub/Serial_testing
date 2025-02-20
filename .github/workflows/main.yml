@@ -42,7 +42,7 @@ jobs:
         run: |
           for file in $CHANGED_FILES; do
             echo "Processing: $file"
-            python try2.py "$file"
+            python Bot.py "$file"
           done
 
 
