@@ -36,7 +36,7 @@ def test_read_failure():
 
 
 def test_write_successful():
-    with patch('serial.Serial') as mock_serial:
+    with patch('serial.Serial') as mock_serial
         serial_instance = MySerial('COM10')
         serial_instance.connect()
         serial_instance.serial_connection.write = lambda data: None
