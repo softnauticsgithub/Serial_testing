@@ -75,8 +75,7 @@ def test_write_failure():
     Test that writing to the serial connection fails when a SerialException is raised.
     """
     with patch('serial.Serial') as mock_serial:
-        mock_serial.side_effect = serial.SerialException(
-            "Serial connection not established.")
+        mock_serial.side_effect = Exception("Serial connection not established.")
         serial_instance = MySerial('COM10')
         assert serial_instance.write(b'') is None
 
