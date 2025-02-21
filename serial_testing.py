@@ -9,7 +9,6 @@ read/write operations using unittest.mock for mocking serial.Serial.
 
 from unittest.mock import patch
 from myserial import MySerial
-import serial  # remove unused import
 
 def test_connection_successful():
     """
