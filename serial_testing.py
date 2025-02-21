@@ -8,7 +8,6 @@ read/write operations using unittest.mock for mocking serial.Serial.
 # pylint: disable=invalid-name
 
 from unittest.mock import patch
-import pytest
 from myserial import MySerial
 
 
