@@ -8,9 +8,8 @@ read/write operations using unittest.mock for mocking serial.Serial.
 # pylint: disable=invalid-name
 
 from unittest.mock import patch
-import serial
 from myserial import MySerial
-
+import serial  # remove unused import
 
 def test_connection_successful():
     """
@@ -105,4 +104,3 @@ def test_repetitive_read_write():
         for _ in range(10):
             assert serial_instance.read(4) == b'Test'
             serial_instance.write(b'Test')
-
