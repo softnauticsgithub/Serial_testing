@@ -1,6 +1,6 @@
 
 """
-This module contains unit tests for the MySerial class, using the unittest.mock.patch
+This module contains unit tests for the MySerial class, utilizing unittest.mock.patch
 to mock serial port connections and test the functionality of the MySerial methods.
 """
 
@@ -103,3 +103,4 @@ def test_repetitive_read_write():
         for _ in range(10):
             assert serial_instance.read(4) == b'Test'
             serial_instance.write(b'Test')
+
