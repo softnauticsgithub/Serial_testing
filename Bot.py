@@ -1,4 +1,4 @@
-
+```python
 """This script formats and updates Python code using autopep8, flake8, and OpenAI's model.
 
 It processes Python files by:
@@ -114,3 +114,4 @@ if __name__ == "__main__":
     changed_files = sys.argv[1:]
     if changed_files:
         main(changed_files)
+```
