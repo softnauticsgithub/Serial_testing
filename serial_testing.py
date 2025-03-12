@@ -5,7 +5,7 @@ from myserial import MySerial
 def test_connection_successful():
     with patch('serial.Serial') as mock_serial:
         mock_serial.return_value = True
-        serial_instance = MySerial('COM10')
+        serial_instance = MySerial('COM10'
         serial_instance.connect()
         assert serial_instance.serial_connection is True
 
