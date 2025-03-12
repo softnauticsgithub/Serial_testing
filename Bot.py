@@ -21,6 +21,7 @@ client = OpenAI(api_key="sk-proj-2By770zviWsreq3LW7fDGkfGTaTOKYJT"
 
 assistant_id = "asst_ohjld2zq70yjwOqIDCBIvWHM"
 
+
 def format_python_code(file_path):
     """Formats Python code using autopep8.
 
@@ -98,7 +99,7 @@ def main(changed_files):
     for file_path in changed_files:
         if file_path.endswith(".py") and os.path.exists(file_path):
             flake8_result = check_code_with_flake8(file_path)
-            print((f"Flake8 suggestions before update:\n{flake8_result[0]}"))
+            print(f"Flake8 suggestions before update:\n{flake8_result[0]}")
 
             update_code_using_openai(file_path)
             time.sleep(3)
@@ -107,7 +108,7 @@ def main(changed_files):
             format_python_code(file_path)
 
             flake8_result = check_code_with_flake8(file_path)
-            print((f"Flake8 suggestions after update:\n{flake8_result[0]}"))
+            print(f"Flake8 suggestions after update:\n{flake8_result[0]}")
 
 
 if __name__ == "__main__":
