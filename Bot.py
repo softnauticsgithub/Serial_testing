@@ -83,7 +83,7 @@ def update_code_using_openai(file_path):
     if run.status == "completed":
         messages = client.beta.threads.messages.list(thread_id=thread.id)
         updated_code = messages.data[0].content[0].text.value  # Extract AI response
-        cleaned_code = updated_code.replace("", "").replace("", "")
+        cleaned_code = updated_code.replace("```python", "").replace("```", "")
 
         with open(file_path, "w") as file:
             file.write(cleaned_code)
