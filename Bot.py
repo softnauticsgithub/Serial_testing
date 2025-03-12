@@ -53,6 +53,7 @@ def update_code_using_openai(file_path):
         thread_id=thread.id,
         role="user",
         content=f"""
+            Don't update comment if already added\n
             Code:\n
             {original_code}
         """
