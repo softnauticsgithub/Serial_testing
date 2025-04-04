@@ -11,7 +11,7 @@ def test_connection_successful():
 
 
 def test_connection_failure():
-    with patch('serial.Serial') as mock_serial
+    with patch('serial.Serial') as mock_serial:
         mock_serial.return_value = None
         serial_instance = MySerial('COM10')
         serial_instance.connect()
